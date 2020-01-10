@@ -1,0 +1,26 @@
+# Persistent network interfaces
+#
+# Note: Ubuntu 18.04 uses netplan by default (has a different, YAML-based
+# interface definition structure), so we installed `ifupdown` to revert back to using the classic
+# /etc/network/interfaces configuration style.
+#
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet static
+	address 10.83.2.6
+	network 10.83.2.4
+	netmask 255.255.255.252
+	up route add default gw 10.83.2.5 dev eth0
+
+iface eth0 inet6 static
+	address 2001:83:138::0002
+	netmask 64
+	up ip -6 route add default via 2001:83:138::0001 dev eth0
+# The primary network interface
+#auto eth0
+#iface eth0 inet dhcp
+

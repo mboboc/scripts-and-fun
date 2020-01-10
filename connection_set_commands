@@ -1,0 +1,56 @@
+ssh madalina.boboc@fep.grid.pub.ro
+ssh -i ~/.ssh/openstack.key student@10.9.3.100
+
+red:
+ip address = 10.200.40.130/29
+gateway = 10.200.40.129/29
+
+ip address add 10.200.40.130/29 dev eth0
+ip link set dev eth0 up
+ip route add default via 10.200.40.129
+
+green:
+ip address = 10.200.40.138/30
+gateway = 10.200.40.137/30
+
+ip address add 10.200.40.138/30 dev eth0
+ip link set dev eth0 up
+ip route add default via 10.200.40.137
+
+blue:
+ip address = 10.200.40.142/30
+gateway = 10.200.40.141/30
+
+ip address add 10.200.40.142/30 dev eth0
+ip link set dev eth0 up
+ip route add default via 10.200.40.141
+
+host:
+
+ip address add 10.200.40.129/29 dev veth-red
+ip address add 10.200.40.137/30 dev veth-green
+ip address add 10.200.40.141/30 dev veth-blue
+ip link set dev veth-red up
+ip link set dev veth-green up
+ip link set dev veth-blue up
+
+iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE # Pentru translatare NAT
+
+sysctl -w net.ipv4.ip_forward=1
+
+verificare:
+
+red:
+	ping host
+	ping green
+	ping blue
+
+green:
+	ping host
+	ping red
+	ping blue
+
+blue
+	ping host
+	ping red
+	ping green
