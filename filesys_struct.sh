@@ -14,12 +14,3 @@ do
 	touch $LAB$AUX$README$LAB$MD
         echo "Created file: " $LAB$AUX$README$LAB$MD	
 done
-
-for i in `seq 10 12`;
-do
-	LAB=$VAR2$i
-	mkdir $LAB
-	echo "Created directory: " $LAB
-	touch $LAB$AUX$README$LAB$MD
-	echo "Created file: " $LAB$AUX$README$LAB$MD
-done
