@@ -1,0 +1,63 @@
+Comenzi Cisco Packet Tracer
+
+=== 1. Comenzi Comune ===
+
+==== 1.1 Generice ====
+>enable – oferă drepturi administrative
+#show running-config - afișează configurația curentă de pe echipament
+#configure terminal (#conf t) - intrare în modul de configurare
+(config-*)# exit - întoarcere la modul de configurare anterior
+(config-*)# end - întoarcere la module de vizualizare, interogare de date
+(config)# / (config-if)  do show <parametri> 
+                  do ping <parametri>
+                  do clean <parametri>
+                  do etc. 
+puteți rula comenzi aferente modului global de vizualizare/interogare din modulele de configurare precum (config), (config-if), (config-vlan) etc. utilizând keyword-ul do în fața comenzii
+
+==== 1.2 Tips ====
+hover peste beculețul verde de lângă port – afișează numele/numărul portului sau informații despre PC
+Click pe butonul de Fast Forward Time de pe burtiera galbenă de jos pentru a forța finalizarea setup-ului interfețelor cu beculeț portocaliu
+CTRL + SHIFT + 6 sau CTRL + ALT + 6 - întrerupere comandă introdusă greșit
+R1# end
+Translating "end"...domain server (255.255.255.255)
+Pentru a vizualiza numele interfețelor fizice în topologie, configurați din GUI-ul Packet Tracer: Options -> Preferences -> Always Show Port Labels
+
+
+
+
+=== 2. Switch ===
+
+==== 2.1 Generice ====
+#show mac-address-table - vizualizează tabela de comutare a switch-ului
+#clear mac-address-table – curăță tabela de comutare
+(config)#mac-address-table static AAAA.BBBB.CCCC vlan Z interface FastEthernet X/Y - setarea adresei mac pe o interfață
+AAAA.BBBB.CCCC - adresa mac
+Z - numărul VLAN-ului (default 1)
+X/Y indicele interfețe
+#show spanning-tree - afișarea arborelui de acoperire
+(config)#spanning-tree vlan X priority Y - setează prioritatea switch-ului pentru vlan-ul X la valoarea Y
+==== 2.1 VLAN ====
+#show vlan brief - afișează informații despre VLAN-uri
+#show interface vlan brief - afișează informații sumare despre VLAN-urile de pe interfețe
+(config)#vlan X - creează VLAN-ul X
+(config)# interface <TYPE><NUMBER> 
+(config-if)#switchport mode access/trunk - setează interfața în mod access/trunk
+(config-if)#switchport access vlan <X> - atribuie VLAN-ul X pe interfață în mod access
+(config-if)#switchport trunk allowed vlan <X>/all - permite VLAN-ul X pe legatura trunk
+(config-vlan)#name <Y> - numește VLAN-ul Y (atribuie in tag VLAN-ului Y)
+
+(config)# interface vlan <X> - intrare în modul de configurare al interfeței virtuale de VLAN X
+(config-if)#no ip address - șterge adresa IP de pe interfața virtuală de VLAN
+(config-if)#ip address <IP> <MASK> - setează adresa IP pe interfața virtuală de VLAN  (masca în formă zecimală)
+
+=== 3. Router ===
+
+==== 3.1 Generice ====
+(config)#interface <TYPE><NUMBER> - intră în modul de configurare pentru interfața respectiva
+(config-if)#no ip address - șterge adresa IP de pe interfață
+(config-if)#no shutdown - pornește interfața
+(config-if)#ip address <IP> <MASK> - setează adresa IP pe interfață (masca în formă zecimală)
+#show ip interface brief - afișează informații sumare despre interfețe 
+(config)#ip route <IP_X> <MASCA_Y> <IP_NEXT_HOP> - adaugă ruta către rețeaua definită de IP X și masca Y prin IP_NEXT_HOP
+#show ip route - afișează informații despre rute
+(config)# no ip route <IP_X> <MASCA_Y> <IP_NEXT_HOP> șterge ruta adăugată
