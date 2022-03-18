@@ -6,7 +6,7 @@ tmux has-session -t $SESSIONNAME &> /dev/null
 if [ $? != 0 ]
 then	
 	echo "Created a new SO2 Session"
-	cd /$USER/linux
+	cd /home/$USER/linux
 	tmux new-session -s $SESSIONNAME -n 'repo' -d
 	
 	cd tools/labs
