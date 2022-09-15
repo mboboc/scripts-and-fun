@@ -2,7 +2,7 @@
 
 IFS=' '
 while true; do
-	xdg-open https://www.youtube.com/watch?v=mPVDGOVjRQ0
+	xdg-open https://www.youtube.com/watch?v=yxfCbV21ck8
 	t=$((360 + RANDOM % 10))
 	sleep $t
 	var=$(pidof chrome)
